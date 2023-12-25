@@ -13,24 +13,24 @@ func Routes() *gin.Engine {
 	{
 		users := api.Group("/users")
 		{
-			users.POST("/users")
-			users.GET("/users/{id}")
-			users.PUT("/users/{id}")
-			users.DELETE("/users/{id}")
+			users.POST("/")
+			users.GET("/:id")
+			users.PUT("/:id")
+			users.DELETE("/:id")
 		}
 		products := api.Group("/products")
 		{
-			products.POST("/products")
-			products.GET("/products/{id}")
-			products.PUT("/products/{id}")
-			products.DELETE("/products/{id}")
+			products.POST("/")
+			products.GET("/:id")
+			products.PUT("/:id")
+			products.DELETE("/:id")
 		}
 		orders := api.Group("/orders")
 		{
-			orders.POST("/orders")
-			orders.GET("/orders/{id}")
-			orders.PUT("/orders/{id}")
-			orders.DELETE("/orders/{id}")
+			orders.POST("/")
+			orders.GET("/:id")
+			orders.PUT("/:id")
+			orders.DELETE("/:id")
 		}
 		auth := api.Group("/auth")
 		{
@@ -40,8 +40,8 @@ func Routes() *gin.Engine {
 		}
 		payments := api.Group("/payments")
 		{
-			payments.POST("/payments")
-			payments.POST("/payments/{id}")
+			payments.POST("/")
+			payments.POST("/:id")
 		}
 	}
 	return router
