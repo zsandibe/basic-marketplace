@@ -1,0 +1,60 @@
+CREATE TABLE IF NOT EXISTS users(
+    ID BIGSERIAL PRIMARY KEY NOT NULL,
+    Username TEXT NOT NULL UNIQUE,
+    Email TEXT NOT NULL UNIQUE,
+    First_name VARCHAR NOT NULL,
+    Last_name VARCHAR NOT NULL,
+    Telephone BIGINT NOT NULL,
+    Created_at TIMESTAMPTZ NOT NULL,
+    Updated_at TIMESTAMPTZ,
+    Role TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users_address(
+    ID BIGSERIAL PRIMARY KEY NOT NULL,
+    User_ID BIGINT NOT NULL,
+    Address_line1 VARCHAR NOT NULL,
+    City VARCHAR NOT NULL,
+    Postal_code VARCHAR NOT NULL,
+    Country VARCHAR NOT NULL,
+    Telephone BIGINT NOT NULL,
+    FOREIGN KEY (User_ID) REFERENCES users(ID)
+)
+
+
+CREATE TABLE IF NOT EXISTS products(
+    ID SERIAL PRIMARY KEY NOT NULL,
+    Seller_ID INTEGER NOT NULL,
+    Name TEXT NOT NULL,
+    Description TEXT NOT NULL,
+    Price FLOAT NOT NULL,
+    FOREIGN KEY (Seller_ID) REFERENCES sellers(ID) 
+            ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS orders(
+    ID SERIAL PRIMARY KEY NOT NULL,
+    User_ID INTEGER NOT NULL,
+    Product_ID INTEGER NOT NULL,
+    Quantity INTEGER NOT NULL,
+    Status TEXT NOT NULL,
+    Address TEXT NOT NULL,
+    Order_date TIMESTAMP NOT NULL,
+    FOREIGN KEY (User_ID) REFERENCES users(ID) 
+            ON DELETE CASCADE
+    FOREIGN KEY (Product_ID) REFERENCES products(ID)
+            ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS payments(
+    ID SERIAL PRIMARY KEY NOT NULL,
+    Order_ID INTEGER NOT NULL,
+    Amount FLOAT NOT NULL,
+    Payment_status TEXT NOT NULL,
+    Payment_method TEXT NOT NULL,
+    Payment_date TIMESTAMP NOT NULL,
+    Payment_system_info TEXT,
+    FOREIGN KEY (Order_ID) REFERENCES orders(ID)
+            ON DELETE CASCADE
+)
+

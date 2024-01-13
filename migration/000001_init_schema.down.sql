@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS payments, orders, products, users;
